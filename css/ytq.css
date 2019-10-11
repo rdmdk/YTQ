@@ -21,22 +21,8 @@
 	--r: #607d8b; 
 	--s: #222; 
 }
-@font-face {
-	font-family: 'prox';
-	src: url('/assets/fonts/proximasl.woff2') format('woff2'),
-		url('/assets/fonts/proximasl.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-@font-face {
-	font-family: "helv";
-	src: url("/assets/fonts/helveticaneuel.woff2") format("woff2"),
-		url("/assets/fonts/helveticaneuel.woff") format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
 .body {
-	font: 0 'prox', arial, sans-serif;
+	font: 0 'Roboto', arial, sans-serif;
 	text-transform: uppercase;
 	background: #fff;
 	color: #222;
@@ -49,12 +35,7 @@
 	user-select: none;
 	scroll-behavior: smooth;
 }
-.helv{font-family: "helv"}
-.rob{
-    font-family: "Roboto";
-    font-weight: 300;
-    text-transform: none;
-}
+.helv{font-family: "Helvetica"}
 .body.day,
 .body.night {opacity: 1}
 .h1,
