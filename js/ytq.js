@@ -713,9 +713,9 @@ recalltheme();
 
 /// Font change
 function font() {
-    let a = localStorage.font ? localStorage.font : "prox", b = "";
-    if (a === "prox") b = "helv";
-    else if (a === "helv") b = "prox";
+    let a = localStorage.font ? localStorage.font : "ubun", b = "";
+    if (a === "ubun") b = "helv";
+    else if (a === "helv") b = "ubun";
     document.body.classList.remove(a);
     document.body.classList.add(b);
     localStorage.font = b;
