@@ -72,14 +72,14 @@ function getsubscriptions() {
         let list = [];
 
         fetch(url)
-            .then((a) => { return a.json() })
+            .then((a) => { return a.json(); })
             .then((b) => {
                 let x = b.nextPageToken;
-                b.items.forEach((c) => { list.push(c) });
+                b.items.forEach((c) => { list.push(c); });
                 let s = setInterval(() => {
                     if (x) {
                         let d = fetch(nexturl + x)
-                            .then((e) => { return e.json() })
+                            .then((e) => { return e.json(); })
                             .then((f) => {
                                 x = f.nextPageToken;
                                 f.items.forEach((g) => list.push(g));
@@ -89,6 +89,8 @@ function getsubscriptions() {
                         all.innerHTML = "";
                         setTimeout(() => {
                             let newlist = [...new Set(list)];
+                            newlist.sort((a, b) => a.snippet.title.localeCompare(b.snippet.title));
+                            console.log(newlist);
                             newlist.forEach((a, i) => {
                                 setTimeout(function () {
                                     if (favorites.innerHTML.indexOf(a.snippet.resourceId.channelId) === -1) all.insertAdjacentHTML("beforeend", "<li class='li' data-background><span class='span listing' data-id='" + a.snippet.resourceId.channelId + "'><span class='span image'><img class='img' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' style='background-image:url(" + a.snippet.thumbnails.default.url + ");'></span><span class='span title'>" + a.snippet.title.replace(/\'/gm, "&#39;") + "</span></span><span class='span handles'><span class='span star' data-color=''><i class='fa fa-star' aria-hidden='true'></i></span><span class='span drag' data-color=''><i class='fa fa-bars' aria-hidden='true'></i></span></span></li>");
@@ -151,7 +153,7 @@ function getlatest(a = "search") {
     if (a === "search") url = "https://www.googleapis.com/youtube/v3/search?&channelId=" + subscriptionid + "&part=snippet,id&order=date&maxResults=16&type=video&key=" + youtubekey;
     else if (a === "upload") url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2C+id&playlistId=" + subscriptionid.replace(/UC/gm, "UU") + "&order=date&maxResults=16&key=" + youtubekey;
     fetch(url)
-        .then((a) => { return a.json() })
+        .then((a) => { return a.json(); })
         .then((b) => {
             latest.querySelector(".videos").innerHTML = "";
             latest.querySelector(".videos").setAttribute("data-page", n);
@@ -179,7 +181,7 @@ function loadvideo() {
     document.getElementById("channel").parentNode.setAttribute("href", "https://www.youtube.com/channel/" + document.querySelector(".videos .active .listing").getAttribute("data-channel-id"));
     document.getElementById("date").innerText = document.querySelector(".videos .active .listing").getAttribute("data-date");
     document.getElementById("youtube").querySelector(".a").setAttribute("href", "https://www.youtube.com/channel/" + document.querySelector(".videos .active .listing").getAttribute("data-channel-id"));
-    setTimeout(() => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize() }, 500);
+    setTimeout(() => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize(); }, 500);
     setTimeout(() => document.getElementById("hd").style.opacity = 1, 1e3);
 }
 video.querySelector(".screen").addEventListener("click", () => playvideo(document.querySelector(".videos .playing .listing").getAttribute("data-id")));
@@ -320,7 +322,7 @@ function importurls(a) {
             if (y.startsWith("PL")) {
                 let url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2C+id&playlistId=" + y + "&maxResults=50&key=" + youtubekey;
                 fetch(url)
-                    .then((a) => { return a.json() })
+                    .then((a) => { return a.json(); })
                     .then((b) => {
                         let x = b.nextPageToken;
                         let nexturl = url + "&pageToken=";
@@ -330,14 +332,14 @@ function importurls(a) {
                             console.log("Items:");
                             console.log(b.items);
                         }
-                        b.items.forEach((c) => { if (!saved.querySelector(".videos").innerHTML.includes(c.snippet.resourceId.videoId)) list.push(c) });
+                        b.items.forEach((c) => { if (!saved.querySelector(".videos").innerHTML.includes(c.snippet.resourceId.videoId)) list.push(c); });
                         let s = setInterval(() => {
                             if (x) {
                                 let d = fetch(nexturl + x)
-                                    .then((e) => { return e.json() })
+                                    .then((e) => { return e.json(); })
                                     .then((f) => {
                                         x = f.nextPageToken;
-                                        f.items.forEach((g) => { if (!saved.querySelector(".videos").innerHTML.includes(g.snippet.resourceId.videoId)) list.push(g) });
+                                        f.items.forEach((g) => { if (!saved.querySelector(".videos").innerHTML.includes(g.snippet.resourceId.videoId)) list.push(g); });
                                     });
                             } else {
                                 clearInterval(s);
@@ -354,9 +356,9 @@ function importurls(a) {
                                             if (!saved.querySelector(".videos").innerHTML.includes(a.snippet.resourceId.videoId)) {
                                                 let url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2C+id&id=" + a.snippet.resourceId.videoId + "&key=" + youtubekey;
                                                 fetch(url)
-                                                    .then((a) => { return a.json() })
+                                                    .then((a) => { return a.json(); })
                                                     .then((b) => {
-                                                        b.items.forEach((c) => { if (!saved.querySelector(".videos").innerHTML.includes(c.id)) saved.querySelector(".videos").insertAdjacentHTML("beforeend", "<li class='li' title='" + c.snippet.title.replace(/\'/gm, "&#39;") + " - " + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-background><span class='span listing' data-id='" + c.id + "' data-date='" + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-channel='" + c.snippet.channelTitle.replace(/\'/gm, "&#39;") + "' data-channel-id='" + c.snippet.channelId + "'><span class='span image'><img class='img' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' style='background-image:url(" + c.snippet.thumbnails.medium.url + "'></span><span class='span title'>" + c.snippet.title.replace(/\'/gm, "&#39;") + "</span></span><span class='save' title='Save' data-color><i class='fa fa-plus'></i></span></li>") });
+                                                        b.items.forEach((c) => { if (!saved.querySelector(".videos").innerHTML.includes(c.id)) saved.querySelector(".videos").insertAdjacentHTML("beforeend", "<li class='li' title='" + c.snippet.title.replace(/\'/gm, "&#39;") + " - " + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-background><span class='span listing' data-id='" + c.id + "' data-date='" + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-channel='" + c.snippet.channelTitle.replace(/\'/gm, "&#39;") + "' data-channel-id='" + c.snippet.channelId + "'><span class='span image'><img class='img' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' style='background-image:url(" + c.snippet.thumbnails.medium.url + "'></span><span class='span title'>" + c.snippet.title.replace(/\'/gm, "&#39;") + "</span></span><span class='save' title='Save' data-color><i class='fa fa-plus'></i></span></li>"); });
                                                     })
                                                     .catch((e) => console.error(e));
                                             }
@@ -374,19 +376,19 @@ function importurls(a) {
             } else {
                 let url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2C+id&id=" + y + "&key=" + youtubekey;
                 fetch(url)
-                    .then((a) => { return a.json() })
+                    .then((a) => { return a.json(); })
                     .then((b) => {
                         if (window.location.hash === "#debug") {
                             console.log("Items:");
                             console.log(b.items);
                         }
-                        b.items.forEach((c) => { if (!saved.querySelector(".videos").innerHTML.includes(c.id)) saved.querySelector(".videos").insertAdjacentHTML("beforeend", "<li class='li' title='" + c.snippet.title.replace(/\'/gm, "&#39;") + " - " + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-background><span class='span listing' data-id='" + c.id + "' data-date='" + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-channel='" + c.snippet.channelTitle.replace(/\'/gm, "&#39;") + "' data-channel-id='" + c.snippet.channelId + "'><span class='span image'><img class='img' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' style='background-image:url(" + c.snippet.thumbnails.medium.url + "'></span><span class='span title'>" + c.snippet.title.replace(/\'/gm, "&#39;") + "</span></span><span class='save' title='Save' data-color><i class='fa fa-plus'></i></span></li>") });
+                        b.items.forEach((c) => { if (!saved.querySelector(".videos").innerHTML.includes(c.id)) saved.querySelector(".videos").insertAdjacentHTML("beforeend", "<li class='li' title='" + c.snippet.title.replace(/\'/gm, "&#39;") + " - " + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-background><span class='span listing' data-id='" + c.id + "' data-date='" + new Date(c.snippet.publishedAt).getDate() + " " + new Date(c.snippet.publishedAt).toLocaleString("en-us", { month: "short" }) + " " + new Date(c.snippet.publishedAt).getFullYear() + "' data-channel='" + c.snippet.channelTitle.replace(/\'/gm, "&#39;") + "' data-channel-id='" + c.snippet.channelId + "'><span class='span image'><img class='img' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' style='background-image:url(" + c.snippet.thumbnails.medium.url + "'></span><span class='span title'>" + c.snippet.title.replace(/\'/gm, "&#39;") + "</span></span><span class='save' title='Save' data-color><i class='fa fa-plus'></i></span></li>"); });
                     })
                     .catch((e) => console.error(e));
             }
         }
     });
-    setTimeout(() => { localStorage.saved = saved.querySelector(".videos").innerHTML }, 4e3);
+    setTimeout(() => { localStorage.saved = saved.querySelector(".videos").innerHTML; }, 4e3);
 }
 
 saved.querySelector(".sync").addEventListener("click", () => {
@@ -446,7 +448,7 @@ options.forEach((a) => {
         }, 10);
     });
 });
-document.getElementById("input").addEventListener("click", () => { if (win.getAttribute("data-page") === "export") document.getElementById("input").select() });
+document.getElementById("input").addEventListener("click", () => { if (win.getAttribute("data-page") === "export") document.getElementById("input").select(); });
 
 function exitnav(a) {
     setTimeout(() => fadeOut(win), a);
@@ -566,7 +568,7 @@ h2s.forEach((a) => {
                     slideUp(div);
                 }
                 if (a.closest(".subscriptions")) {
-                    setTimeout(() => { if (div.style.display === "none") all.style = "" }, 600);
+                    setTimeout(() => { if (div.style.display === "none") all.style = ""; }, 600);
                 }
             });
         }
@@ -619,7 +621,7 @@ document.body.addEventListener("click", (e) => {
                     setTimeout(() => setactive(), 10);
                     if (video.scrollHeight === 0) {
                         slideDown(video);
-                        setTimeout(() => { if (localStorage.pin && localStorage.pin === "pin" && (window.innerHeight > window.innerWidth)) video.classList.add("pin") }, 500);
+                        setTimeout(() => { if (localStorage.pin && localStorage.pin === "pin" && (window.innerHeight > window.innerWidth)) video.classList.add("pin"); }, 500);
                     }
                 }
                 if (!video.classList.contains("pin")) zenscroll.toY(0, 500);
@@ -713,9 +715,9 @@ recalltheme();
 
 /// Font change
 function font() {
-    let a = localStorage.font ? localStorage.font : "ubun", b = "";
-    if (a === "ubun") b = "helv";
-    else if (a === "helv") b = "ubun";
+    let a = localStorage.font ? localStorage.font : "prox", b = "";
+    if (a === "prox") b = "helv";
+    else if (a === "helv") b = "prox";
     document.body.classList.remove(a);
     document.body.classList.add(b);
     localStorage.font = b;
@@ -744,6 +746,6 @@ function newsize() {
 var resizing;
 window.addEventListener("resize", () => {
     clearTimeout(resizing);
-    resizing = setTimeout(() => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize() }, 1e3);
+    resizing = setTimeout(() => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize(); }, 1e3);
 });
-window.addEventListener("scroll", () => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize() });
+window.addEventListener("scroll", () => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize(); });
