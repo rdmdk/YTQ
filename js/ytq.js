@@ -215,7 +215,7 @@ function onPlayerStateChange(event) {
         let a = video.querySelector(".screen iframe");
         fadeOut(a);
         setTimeout(() => a.parentNode.removeChild(a), 1e3);
-        setTimeout(() => {
+        var si = setTimeout(() => {
             if (document.querySelector(".autoplay").classList.contains("on") && document.querySelector(".videos .playing").nextElementSibling) {
                 let b;
                 if (document.querySelector(".videos .playing").closest(".latest")) b = document.getElementById("latest");
@@ -230,6 +230,9 @@ function onPlayerStateChange(event) {
                 setTimeout(() => playvideo(document.querySelector(".videos .playing .listing").getAttribute("data-id")), 1500);
             }
         }, 2e3);
+        document.querySelectorAll(".videos li").forEach((v) => {
+            v.addEventListener("click", () => clearTimeout(si));
+        });
     }
 }
 
