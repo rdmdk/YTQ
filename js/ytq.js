@@ -29,20 +29,6 @@ if (!localStorage.id && !localStorage.all) {
     setTimeout(() => document.getElementById('new').classList.remove('wait'), 2e3);
 }
 
-// News
-if (!localStorage.news && !sessionStorage.news) {
-    if (localStorage.id) {
-        main.insertAdjacentHTML('beforeend', '<h2 id="news" class="h2 new wait" title="Check out the lite version of YTQ!" data-color><span class="span">Check out YTL!</span></h2>');
-        document.body.addEventListener('click', (e) => {
-            if (e.target.id === 'news') {
-                localStorage.news = 'Seen it';
-                window.location = '/ytl';
-            }
-        });
-        setTimeout(() => document.getElementById('news').classList.remove('wait'), 2e3);
-    }
-}
-
 // Populate Sections on Load
 if (localStorage.id) channelid = localStorage.id;
 if (localStorage.favorites) favorites.innerHTML = localStorage.favorites;
