@@ -193,7 +193,7 @@ function playvideo(a = document.querySelector('.videos .playing .listing').getAt
         let b = screen.querySelector('iframe');
         b.parentNode.removeChild(b);
     } else {
-        if (YT) {
+        if (YT && YT.Player) {
             screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<div id="x"></div>');
             new YT.Player('x', {
                 videoId: a,
