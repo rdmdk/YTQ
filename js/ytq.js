@@ -124,12 +124,12 @@ var s2 = Sortable.create(all, {
 });
 
 function reorderz() {
-	let o = video.classList.contains('pin') ? subscriptions.offsetTop - screen.scrollHeight : subscriptions.offsetTop;
+	let o = video.classList.includes('pin') ? subscriptions.offsetTop - screen.scrollHeight : subscriptions.offsetTop;
 	zenscroll.toY(o, 500);
 	let a;
 	subscriptions.classList.toggle('edit');
 	setTimeout(() => {
-		a = subscriptions.classList.contains('edit') ? false : true;
+		a = subscriptions.classList.includes('edit') ? false : true;
 		s1.option('disabled', a);
 		s2.option('disabled', a);
 	}, 100);
@@ -239,7 +239,7 @@ function onPlayerStateChange(event) {
 		fadeOut(a);
 		setTimeout(() => a.parentNode.removeChild(a), 1e3);
 		var si = setTimeout(() => {
-			if (document.querySelector('.autoplay').classList.contains('on') && document.querySelector('.videos .playing').nextElementSibling) {
+			if (document.querySelector('.autoplay').classList.includes('on') && document.querySelector('.videos .playing').nextElementSibling) {
 				let b = document.querySelector('.videos .playing').closest('.latest') ? latest : document.querySelector('.videos .playing').closest('.saved') ? saved : '';
 				let c = b.querySelector('.videos .playing').nextElementSibling;
 				let d = [...c.parentNode.children].indexOf(c);
@@ -272,7 +272,7 @@ function enableautoplay() {
 document.querySelectorAll('.autoplay').forEach(a => {
 	let classes = a.classList;
 	a.addEventListener('click', () => {
-		let b = classes.contains('off') ? 'on' : 'off';
+		let b = classes.includes('off') ? 'on' : 'off';
 		classes = 'li autoplay ' + b;
 		localStorage.autoplay = b;
 		enableautoplay();
@@ -291,7 +291,7 @@ function setactive() {
 		document.querySelectorAll('.videos .listing').forEach(a => {
 			let classes = a.closest('.li').classList;
 			if (a.getAttribute('data-id') === screen.getAttribute('data-id')) {
-				if (!classes.contains('active')) {
+				if (!classes.includes('active')) {
 					if (!document.querySelector('.playing')) classes = 'li active playing';
 					else classes = 'li active';
 				}
@@ -443,7 +443,7 @@ function importurls(a) {
 
 sync.addEventListener('click', () => {
 	let classes = sync.classList;
-	if (classes.contains('off')) {
+	if (classes.includes('off')) {
 		classes = 'li sync on';
 		localStorage.synced = 'on';
 	} else {
@@ -485,14 +485,14 @@ options.forEach(a => {
 		a.classList.toggle('active');
 		setTimeout(() => {
 			let b = '';
-			if (document.querySelector('#options .id').classList.contains('active')) b += '##id##' + localStorage.id;
-			if (document.querySelector('#options .favorites').classList.contains('active')) b += '##favorites##' + localStorage.favorites;
-			if (document.querySelector('#options .all').classList.contains('active')) b += '##all##' + localStorage.all;
-			if (document.querySelector('#options .saved').classList.contains('active')) b += '##saved##' + localStorage.saved;
-			if (document.querySelector('#options .playlists').classList.contains('active')) b += '##playlists##' + localStorage.playlists;
-			if (document.querySelector('#options .theme').classList.contains('active')) b += '##theme##' + localStorage.theme;
-			if (document.querySelector('#options .mode').classList.contains('active')) b += '##mode##' + localStorage.mode;
-			if (document.querySelector('#options .pin').classList.contains('active')) b += '##pin##' + localStorage.pin;
+			if (document.querySelector('#options .id').classList.includes('active')) b += '##id##' + localStorage.id;
+			if (document.querySelector('#options .favorites').classList.includes('active')) b += '##favorites##' + localStorage.favorites;
+			if (document.querySelector('#options .all').classList.includes('active')) b += '##all##' + localStorage.all;
+			if (document.querySelector('#options .saved').classList.includes('active')) b += '##saved##' + localStorage.saved;
+			if (document.querySelector('#options .playlists').classList.includes('active')) b += '##playlists##' + localStorage.playlists;
+			if (document.querySelector('#options .theme').classList.includes('active')) b += '##theme##' + localStorage.theme;
+			if (document.querySelector('#options .mode').classList.includes('active')) b += '##mode##' + localStorage.mode;
+			if (document.querySelector('#options .pin').classList.includes('active')) b += '##pin##' + localStorage.pin;
 			document.getElementById('input').value = b;
 		}, 10);
 	});
@@ -535,7 +535,7 @@ document.getElementById('exit').addEventListener('click', () => exitnav());
 // Pinning
 function pinz() {
 	nav.querySelector('.pin .span').classList.toggle('p');
-	localStorage.pin = nav.querySelector('.pin .span').classList.contains('p') ? 'pin' : '';
+	localStorage.pin = nav.querySelector('.pin .span').classList.includes('p') ? 'pin' : '';
 	pinned();
 }
 
@@ -563,22 +563,22 @@ const navs = nav.querySelectorAll('.ul .li');
 navs.forEach(a => {
 	let classes = a.classList;
 	a.addEventListener('click', (e) => {
-		if (classes.contains('import')) importingexporting('import');
-		else if (classes.contains('export')) importingexporting('export');
-		else if (classes.contains('refresh')) {
+		if (classes.includes('import')) importingexporting('import');
+		else if (classes.includes('export')) importingexporting('export');
+		else if (classes.includes('refresh')) {
 			if (e.shiftKey) window.location.reload(true);
 			else {
-				if (localStorage.playlists && sync.classList.contains('on')) importurls(localStorage.playlists);
+				if (localStorage.playlists && sync.classList.includes('on')) importurls(localStorage.playlists);
 				getsubscriptions();
 			}
-		} else if (classes.contains('theme')) themez(e);
-		else if (classes.contains('mode')) {
+		} else if (classes.includes('theme')) themez(e);
+		else if (classes.includes('mode')) {
 			if (e.shiftKey) {
 				if (window.confirm('Are you sure you want to trigger a supernova? This will reset everything!')) supernova();
 				else return false;
 			} else if (e.altKey) window.location = '/ytl';
 			else modez();
-		} else if (classes.contains('pin')) pinz();
+		} else if (classes.includes('pin')) pinz();
 	});
 });
 
@@ -593,7 +593,6 @@ h2s.forEach(a => {
 			let div = h2.nextElementSibling;
 			h2.classList.toggle('expanded');
 			setTimeout(() => {
-				if (h2.classList.contains('expanded')) {
 					if (a.closest('.latest') && !subscriptions.querySelector('.channels .active')) {
 						setTimeout(() => {
 							let b = favorites.querySelector('.li') ? favorites : all;
@@ -635,14 +634,14 @@ menus.forEach(a => {
 	let classes = a.classList;
 	a.addEventListener('click', () => {
 		if (a.closest('.latest')) {
-			if (classes.contains('more')) {
+			if (classes.includes('more')) {
 				let n = parseInt(latest.querySelector('.videos').getAttribute('data-page')) + 1;
 				latest.querySelector('.videos').setAttribute('data-page', n);
 			}
 		} else if (a.closest('.subscriptions')) {
-			if (classes.contains('more')) slideDown(all, 500);
-			else if (classes.contains('reorder')) reorderz();
-			else if (classes.contains('refresh')) getsubscriptions();
+			if (classes.includes('more')) slideDown(all, 500);
+			else if (classes.includes('reorder')) reorderz();
+			else if (classes.includes('refresh')) getsubscriptions();
 		}
 	});
 });
@@ -653,8 +652,8 @@ document.body.addEventListener('click', (e) => {
 	let classes = a.classList;
 	if (a.localName === 'li') {
 		if (a.closest('.videos')) {
-			if (classes.contains('active')) {
-				if (classes.contains('playing')) return false;
+			if (classes.includes('active')) {
+				if (classes.includes('playing')) return false;
 				else if (document.querySelector('.playing')) {
 					document.querySelector('.playing').classList.remove('playing');
 					classes.add('playing');
@@ -681,24 +680,24 @@ document.body.addEventListener('click', (e) => {
 						}, 500);
 					}
 				}
-				if (!video.classList.contains('pin')) zenscroll.toY(0, 500);
+				if (!video.classList.includes('pin')) zenscroll.toY(0, 500);
 			}
-		} else if (a.closest('.channels') && !subscriptions.classList.contains('edit')) {
-			if (classes.contains('active')) return false;
+		} else if (a.closest('.channels') && !subscriptions.classList.includes('edit')) {
+			if (classes.includes('active')) return false;
 			if (document.querySelector('.channels .active')) document.querySelector('.channels .active').classList = 'li';
 			classes.add('active');
 			getlatest('upload');
 			setTimeout(() => {
 				if (latest.querySelector('.videos').scrollHeight === 0) latest.querySelector('.h2 .title').click();
 				if (window.innerHeight > window.innerWidth) {
-					let o = video.classList.contains('pin') ? latest.offsetTop - screen.scrollHeight : latest.offsetTop;
+					let o = video.classList.includes('pin') ? latest.offsetTop - screen.scrollHeight : latest.offsetTop;
 					zenscroll.toY(o, 500);
 				}
 			}, 250);
 			setTimeout(() => enableautoplay(), 750);
 		}
 	} else if (a.localName === 'span') {
-		if (classes.contains('save')) {
+		if (classes.includes('save')) {
 			if (a.closest('.latest')) {
 				if (saved.querySelector('.videos').innerHTML.includes(a.previousElementSibling.getAttribute('data-id'))) return false;
 				a.title = 'Remove';
@@ -711,7 +710,7 @@ document.body.addEventListener('click', (e) => {
 			enableautoplay();
 			setTimeout(() => localStorage.saved = saved.querySelector('.videos').innerHTML, 500);
 
-		} else if (classes.contains('star')) {
+		} else if (classes.includes('star')) {
 			let b = a.closest('.li');
 			let c = a.closest('.favorites') ? all : favorites;
 			c.insertAdjacentHTML('beforeend', b.outerHTML);
@@ -727,26 +726,26 @@ function themez(e) {
 	if (e.shiftKey) setTimeout(() => newsize(), 1e3);
 	else {
 		let classes = document.body.classList;
-		if (classes.contains('a')) a = 'a', b = 'b';
-		else if (classes.contains('b')) a = 'b', b = 'c';
-		else if (classes.contains('c')) a = 'c', b = 'd';
-		else if (classes.contains('d')) a = 'd', b = 'e';
-		else if (classes.contains('e')) a = 'e', b = 'f';
-		else if (classes.contains('f')) a = 'f', b = 'g';
-		else if (classes.contains('g')) a = 'g', b = 'h';
-		else if (classes.contains('h')) a = 'h', b = 'i';
-		else if (classes.contains('i')) a = 'i', b = 'j';
-		else if (classes.contains('j')) a = 'j', b = 'k';
-		else if (classes.contains('k')) a = 'k', b = 'l';
-		else if (classes.contains('l')) a = 'l', b = 'm';
-		else if (classes.contains('m')) a = 'm', b = 'n';
-		else if (classes.contains('n')) a = 'n', b = 'o';
-		else if (classes.contains('o')) a = 'o', b = 'p';
-		else if (classes.contains('p')) a = 'p', b = 'q';
-		else if (classes.contains('q')) a = 'q', b = 'r';
-		else if (classes.contains('r')) a = 'r', b = 's';
-		else if (classes.contains('s')) a = 's', b = 'aa';
-		else if (classes.contains('aa')) a = 'aa', b = 'bb';
+		if (classes.includes('a')) a = 'a', b = 'b';
+		else if (classes.includes('b')) a = 'b', b = 'c';
+		else if (classes.includes('c')) a = 'c', b = 'd';
+		else if (classes.includes('d')) a = 'd', b = 'e';
+		else if (classes.includes('e')) a = 'e', b = 'f';
+		else if (classes.includes('f')) a = 'f', b = 'g';
+		else if (classes.includes('g')) a = 'g', b = 'h';
+		else if (classes.includes('h')) a = 'h', b = 'i';
+		else if (classes.includes('i')) a = 'i', b = 'j';
+		else if (classes.includes('j')) a = 'j', b = 'k';
+		else if (classes.includes('k')) a = 'k', b = 'l';
+		else if (classes.includes('l')) a = 'l', b = 'm';
+		else if (classes.includes('m')) a = 'm', b = 'n';
+		else if (classes.includes('n')) a = 'n', b = 'o';
+		else if (classes.includes('o')) a = 'o', b = 'p';
+		else if (classes.includes('p')) a = 'p', b = 'q';
+		else if (classes.includes('q')) a = 'q', b = 'r';
+		else if (classes.includes('r')) a = 'r', b = 's';
+		else if (classes.includes('s')) a = 's', b = 'aa';
+		else if (classes.includes('aa')) a = 'aa', b = 'bb';
 		else a = 'bb', b = 'a';
 		classes.remove(a);
 		classes.add(b);
@@ -771,7 +770,7 @@ recalltheme();
 // Night Mode
 function modez() {
 	let a, b, classes = document.body.classList;
-	if (classes.contains('day')) a = 'day', b = 'night';
+	if (classes.includes('day')) a = 'day', b = 'night';
 	else a = 'night', b = 'day';
 	classes.remove(a);
 	classes.add(b);
