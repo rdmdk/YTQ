@@ -82,7 +82,7 @@
 	cursor: pointer;
 	position: relative;
 }
-.section:not(.edit) .list .active {color:#fff}
+.section:not(.edit) .list .active {color: #fff}
 
 .list .li .listing {
 	display: grid;
@@ -118,11 +118,11 @@
 .menu {
 	margin: 3rem 0 0;
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 }
 .menu .li {
-    font-size: 1rem;
-    height:1rem;
+	font-size: 1rem;
+	height: 1rem;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -224,7 +224,7 @@
 .helv .window .h2,
 .helv .window .textarea,
 .helv .window .check .span {line-height: 1.4em}
-.helv .list .li .listing .title{max-height:2.7em}
+.helv .list .li .listing .title{max-height: 2.7em}
 
 .day.helv .video {background:none}
 .night.helv .video {background:none}
@@ -333,7 +333,7 @@
 }
 .video .screen .inner .hd {
 	opacity: 0;
-	transition:opacity 1s ease;
+	transition: opacity 1s ease;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -491,7 +491,7 @@
 	width: 100%;
 	height: calc(100% - 5rem);
 	grid-template-rows: auto min-content min-content min-content min-content;
-	overflow-y:auto;
+	overflow-y: auto;
 	display: none;
 	position: fixed;
 	bottom: 5rem;
@@ -616,17 +616,17 @@
     color: #000;
 }
 .aside .inner {
-    height:100%;
+    height: 100%;
     padding: 3rem;
-    display:grid;
+    display: grid;
     grid-template-rows: min-content auto min-content;
-    grid-gap:3rem;
+    grid-gap: 3rem;
 
 }
 .aside .h2 .span {
     float: right;
     opacity: 0.25;
-    cursor:pointer;
+    cursor: pointer;
     transition: opacity 0.4s ease;
 }
 .aside .h2 .span:hover {
@@ -635,17 +635,17 @@
 .aside .ul {
     display: grid;
     grid-gap: 3rem;
-    overflow-y:auto;
+    overflow-y: auto;
 }
 .aside .li {
     font-size: 1rem;
-    line-height:1em;
+    line-height: 1em;
 }
 .aside .li .div{
-    min-height:3rem;
-    margin:1.5rem 0 0;
-    padding:3rem;
-    border:1px solid rgba(255,255,255,0.25);
+    min-height: 3rem;
+    margin: 1.5rem 0 0;
+    padding: 3rem;
+    border: 1px solid rgba(255,255,255,0.25);
 }
 .aside .button {
     background: #fff;
@@ -662,7 +662,7 @@
 .day .list .li:not(.active),
 .day .edit .list .li.active,
 .day .subscriptions .list .li .handles {background: #fbfbfb}
-.day.helv .video {border-bottom:1px solid #eee}
+.day.helv .video {border-bottom: 1px solid #eee}
 .day .window .section {background: #fff}
 .day .window .fade {background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,1))}
 .day .window .textarea {background: #fbfbfb}
@@ -677,11 +677,11 @@
 .night .list .li:not(.active),
 .night .edit .list .li.active,
 .night .subscriptions .list .li .handles {background: #0d0d0d}
-.night.helv .video {border-bottom:1px solid #222}
+.night.helv .video {border-bottom: 1px solid #222}
 .night .window .section {background: #000}
 .night .window .fade {background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,1))}
 .night .window .textarea {background: #0d0d0d}
-.night .nav:before {background:linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.15))}
+.night .nav:before {background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.15))}
 .night .nav .ul .mode .fa-moon-o {display: block}
 
 .night.s *[data-color] {color: #fff}
@@ -726,8 +726,8 @@
 		transition: bottom 0.4s ease, opacity 0.5s linear;
 	}
 	.video .info .title {padding: 2.5rem 3rem 1.8rem}
-	.video .info .channel {padding:0 0 2.6rem 3rem}
-	.video .info .date {padding:0 3rem 2.6rem}
+	.video .info .channel {padding: 0 0 2.6rem 3rem}
+	.video .info .date {padding: 0 3rem 2.6rem}
 
 	.nav.active ~ .main .video.pin .inner {bottom: 5rem}
 	.video.pin .screen .inner {
@@ -753,11 +753,11 @@
 		left: 50%;
     }
 	.window .section {padding: 0 1rem}
-	.window .exit {padding:2.6rem 0 2.6rem 3rem}
+	.window .exit {padding: 2.6rem 0 2.6rem 3rem}
 	.window .options {padding: 0}
 	.window .h2 {padding: 2.2rem 0}
 	.window .options .ul {margin: 0 0 1rem 0}
-    .aside {width:calc(60rem/2 - 1.5rem)}
+    .aside {width: calc(60rem/2 - 1.5rem)}
 	.helv .video .info .title {padding: 2.9rem 0 2.2rem}
 	.helv .video .info .channel {padding: 0 0 2.6rem}
 	.helv .video .info .date {padding: 0 0 2.6rem 3rem}
@@ -772,8 +772,8 @@
 		left: 0;
 	}
 	.video .info .title {padding: 2.4rem 3rem 1.8rem}
-	.video .info .channel {padding:0 0 2.5rem 3rem}
-	.video .info .date {padding:0 3rem 2.5rem}
+	.video .info .channel {padding: 0 0 2.5rem 3rem}
+	.video .info .date {padding: 0 3rem 2.5rem}
 	
 	.latest .h2,
 	.subscriptions h2,
@@ -785,7 +785,7 @@
 	.window .exit {padding: 2.6rem 3rem}
 	.window .h2 {padding: 2.6rem 0 2.6rem 3rem}
 	.window .options .ul {margin: 0 2rem}
-    .aside {width:75%}
+    .aside {width: 75%}
 	.helv .video .info .title {padding: 2.9rem 3rem 2rem}
 	.helv .video .info .channel,
 	.helv .video .info .date {padding-bottom: 2.6rem}
