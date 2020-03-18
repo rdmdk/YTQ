@@ -613,16 +613,15 @@ h2s.forEach(a => {
 						b.classList.add('wait');
 						setTimeout(() => b.parentElement.removeChild(b), 1e3);
 						sessionStorage.news = 'Seen it';
+					} else {
+						h2.querySelector('.arrow .fa').classList = 'fa fa-angle-down';
+						slideUp(div);
 					}
-				} else {
-					h2.querySelector('.arrow .fa').classList = 'fa fa-angle-down';
-					slideUp(div);
-				}
-				if (a.closest('.subscriptions')) {
-					setTimeout(() => {
-						if (div.style.display === 'none') all.style = '';
-					}, 600);
-				}
+					if (a.closest('.subscriptions')) {
+						setTimeout(() => {
+							if (div.style.display === 'none') all.style = '';
+						}, 600);
+					}
 			});
 		}
 	});
