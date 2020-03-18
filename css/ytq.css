@@ -34,8 +34,11 @@
 	-webkit-touch-callout: none;
 	user-select: none;
 	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+    	-ms-overflow-style: none;
 }
-.helv{font-family: "Helvetica"}
+.body::-webkit-scrollbar {display: none}
+
 .body.day,
 .body.night {opacity: 1}
 .h1,
@@ -203,31 +206,6 @@
 .s .active[data-background][data-force] {background: var(--s, #000) !important}
 .aa .active[data-background][data-force] {background-image: linear-gradient(135deg, #f64f59, #c471ed) !important}
 .bb .active[data-background][data-force] {background-image: linear-gradient(135deg, #f64f59, #c471ed, #12c2e9)}
-
-.helv .h1,
-.helv .h2,
-.helv .h3,
-.helv .list .li .listing .title,
-.helv .videos:empty:before,
-.helv .edit .channels:before,
-.helv .menu .li .span,
-.helv .window .textarea,
-.helv .window .check .span,
-.helv .window .button .button {letter-spacing: 0.05em}
-
-.helv .h1,
-.helv .h2 {font-size: 1.6rem}
-.helv .h2 .arrow {margin-left: 0.5rem}
-
-.helv .video .info .span,
-.helv .list .li .listing .title,
-.helv .window .h2,
-.helv .window .textarea,
-.helv .window .check .span {line-height: 1.4em}
-.helv .list .li .listing .title{max-height: 2.7em}
-
-.day.helv .video {background:none}
-.night.helv .video {background:none}
 
 /* Nav */
 
