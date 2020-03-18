@@ -657,7 +657,6 @@
 	background: #fff;
 	color: #222;
 }
-.day .bg {background-color: #fff}
 .day .video,
 .day .list .li:not(.active),
 .day .edit .list .li.active,
@@ -673,7 +672,6 @@
 	background: #000;
 	color: #fff;
 }
-.night .bg {background-color: #0d0d0d}
 .night .video,
 .night .list .li:not(.active),
 .night .edit .list .li.active,
