@@ -202,8 +202,7 @@ function playvideo(a = document.querySelector('.videos .playing .listing').getAt
                 rel: 0,
                 playsinline: 1,
                 iv_load_policy: 3,
-                origin: ''
-                //origin: 'https://www.youtube.com'
+                origin: 'https://www.youtube.com'
             },
             events: {
                 'onStateChange': onPlayerStateChange
