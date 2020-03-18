@@ -18,29 +18,29 @@ else document.querySelector('html').classList.add('desktop');
 
 // New Users
 if (!localStorage.id && !localStorage.all) {
-    main.insertAdjacentHTML('beforeend', '<h2 id="new" class="h2 new wait" data-color><span class="span">New here?</span></h2>');
-    document.body.addEventListener('click', (e) => {
-        if (e.target.id === 'new') {
-            document.getElementById('toggle').click();
-            importingexporting('new');
-            setTimeout(() => e.target.style.display = 'none', 1e3);
-        }
-    });
-    setTimeout(() => document.getElementById('new').classList.remove('wait'), 2e3);
+	main.insertAdjacentHTML('beforeend', '<h2 id="new" class="h2 new wait" data-color><span class="span">New here?</span></h2>');
+	document.body.addEventListener('click', (e) => {
+		if (e.target.id === 'new') {
+			document.getElementById('toggle').click();
+			importingexporting('new');
+			setTimeout(() => e.target.style.display = 'none', 1e3);
+		}
+	});
+	setTimeout(() => document.getElementById('new').classList.remove('wait'), 2e3);
 }
 
 // News
 if (!localStorage.news && !sessionStorage.news) {
-    if (localStorage.id) {
-        main.insertAdjacentHTML('beforeend', '<h2 id="news" class="h2 new wait" title="Check out the lite version of YTQ!" data-color><span class="span">Check out YTL!</span></h2>');
-        document.body.addEventListener('click', (e) => {
-            if (e.target.id === 'news') {
-                localStorage.news = 'Seen it';
-                window.location = '/ytl';
-            }
-        });
-        setTimeout(() => document.getElementById('news').classList.remove('wait'), 2e3);
-    }
+	if (localStorage.id) {
+		main.insertAdjacentHTML('beforeend', '<h2 id="news" class="h2 new wait" title="Check out the lite version of YTQ!" data-color><span class="span">Check out YTL!</span></h2>');
+		document.body.addEventListener('click', (e) => {
+			if (e.target.id === 'news') {
+				localStorage.news = 'Seen it';
+				window.location = '/ytl';
+			}
+		});
+		setTimeout(() => document.getElementById('news').classList.remove('wait'), 2e3);
+	}
 }
 
 // Populate Sections on Load
@@ -51,59 +51,59 @@ if (localStorage.saved) saved.querySelector('.videos').innerHTML = localStorage.
 
 // Supernova Reset
 function supernova() {
-    localStorage.clear();
-    setTimeout(() => toggle.click(), 1e3);
-    setTimeout(() => fadeOut(nav), 2e3);
-    setTimeout(() => fadeOut(main), 3e3);
-    setTimeout(() => window.location.reload(true), 4e3);
+	localStorage.clear();
+	setTimeout(() => toggle.click(), 1e3);
+	setTimeout(() => fadeOut(nav), 2e3);
+	setTimeout(() => fadeOut(main), 3e3);
+	setTimeout(() => window.location.reload(true), 4e3);
 }
 
 var touch;
 nav.querySelector('.mode').addEventListener('touchstart', () => {
-    touch = setTimeout(() => supernova(), 4e3); 
+	touch = setTimeout(() => supernova(), 4e3); 
 }, false);
 nav.querySelector('.mode').addEventListener('touchend', () => clearTimeout(touch), false);
 
 // Subscriptions
 /// Get/Update
 function getsubscriptions() {
-    if (channelid !== '') {
-        if (window.location.hash === '#debug') console.log('Updating subscriptions');
-        let url = 'https://www.googleapis.com/youtube/v3/subscriptions?part=snippet&channelId=' + channelid + '&maxResults=50&key=' + youtubekey;
-        let nexturl = url + '&pageToken=';
-        let list = [];
+	if (channelid !== '') {
+		if (window.location.hash === '#debug') console.log('Updating subscriptions');
+		let url = 'https://www.googleapis.com/youtube/v3/subscriptions?part=snippet&channelId=' + channelid + '&maxResults=50&key=' + youtubekey;
+		let nexturl = url + '&pageToken=';
+		let list = [];
 
-        fetch(url)
-            .then((a) => { return a.json(); })
-            .then((b) => {
-                let x = b.nextPageToken;
-                b.items.forEach(c => { list.push(c); });
-                let s = setInterval(() => {
-                    if (x) {
-                        fetch(nexturl + x)
-                        .then((e) => { return e.json(); })
-                        .then((f) => {
-                            x = f.nextPageToken;
-                            f.items.forEach(g => list.push(g));
-                        });
-                    } else {
-                        clearInterval(s);
-                        all.innerHTML = '';
-                        setTimeout(() => {
-                            let newlist = [...new Set(list)];
-                            newlist.sort((a, b) => a.snippet.title.localeCompare(b.snippet.title));
-                            newlist.forEach((a, i) => {
-                                setTimeout(function () {
-                                    if (favorites.innerHTML.indexOf(a.snippet.resourceId.channelId) === -1) all.insertAdjacentHTML('beforeend', '<li class="li" data-background><span class="span listing" data-id="' + a.snippet.resourceId.channelId + '"><span class="span image"><img class="img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(' + a.snippet.thumbnails.default.url + ')"></span><span class="span title">' + a.snippet.title.replace(/\'/gm, '&#39;') + '</span></span><span class="span handles"><span class="span star" data-color=""><i class="fa fa-star" aria-hidden="true"></i></span><span class="span drag" data-color=""><i class="fa fa-bars" aria-hidden="true"></i></span></span></li>');
-                                }, 10 * i);
-                            });
-                        }, 1e3);
-                        setTimeout(() => localStorage.all = all.innerHTML, 5e3);
-                    }
-                }, 1e3);
-            })
-            .catch((e) => supernova());
-    }
+		fetch(url)
+			.then((a) => { return a.json(); })
+			.then((b) => {
+				let x = b.nextPageToken;
+				b.items.forEach(c => { list.push(c); });
+				let s = setInterval(() => {
+					if (x) {
+						fetch(nexturl + x)
+							.then((e) => { return e.json(); })
+							.then((f) => {
+								x = f.nextPageToken;
+								f.items.forEach(g => list.push(g));
+							});
+					} else {
+						clearInterval(s);
+						all.innerHTML = '';
+						setTimeout(() => {
+							let newlist = [...new Set(list)];
+							newlist.sort((a, b) => a.snippet.title.localeCompare(b.snippet.title));
+							newlist.forEach((a, i) => {
+								setTimeout(function () {
+									if (favorites.innerHTML.indexOf(a.snippet.resourceId.channelId) === -1) all.insertAdjacentHTML('beforeend', '<li class="li" data-background><span class="span listing" data-id="' + a.snippet.resourceId.channelId + '"><span class="span image"><img class="img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(' + a.snippet.thumbnails.default.url + ')"></span><span class="span title">' + a.snippet.title.replace(/\'/gm, '&#39;') + '</span></span><span class="span handles"><span class="span star" data-color=""><i class="fa fa-star" aria-hidden="true"></i></span><span class="span drag" data-color=""><i class="fa fa-bars" aria-hidden="true"></i></span></span></li>');
+								}, 10 * i);
+							});
+						}, 1e3);
+						setTimeout(() => localStorage.all = all.innerHTML, 5e3);
+					}
+				}, 1e3);
+			})
+			.catch((e) => supernova());
+	}
 }
 /// Sort
 var s1 = Sortable.create(favorites, { group: '.channels', handle: '.drag', disabled: true });
@@ -189,28 +189,26 @@ function loadvideo() {
 screen.addEventListener('click', () => playvideo(document.querySelector('.videos .playing .listing').getAttribute('data-id')));
 
 function playvideo(a = document.querySelector('.videos .playing .listing').getAttribute('data-id')) {
-    if (screen.querySelector('iframe')) {
-        let b = screen.querySelector('iframe');
-        b.parentNode.removeChild(b);
-    } else {
-        screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<div id="x"></div>');
-        window.onYouTubeIframeAPIReady = function() {
-            new YT.Player('x', {
-                videoId: a,
-                playerVars: {
-                    autoplay: 1,
-                    modestbranding: 1,
-                    rel: 0,
-                    playsinline: 1,
-                    iv_load_policy: 3,
-                    origin: 'https://www.youtube.com'
-                },
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-    }
+	if (screen.querySelector('iframe')) {
+		let b = screen.querySelector('iframe');
+		b.parentNode.removeChild(b);
+	} else {
+		screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<div id="x"></div>');
+        new YT.Player('x', {
+			videoId: a,
+			playerVars: {
+				autoplay: 1,
+				modestbranding: 1,
+				rel: 0,
+				playsinline: 1,
+				iv_load_policy: 3,
+				origin: 'https://www.youtube.com'
+			},
+			events: {
+				'onStateChange': onPlayerStateChange
+			}
+		});
+	}
 }
 
 ///  Autoplay
