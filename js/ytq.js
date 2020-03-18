@@ -193,21 +193,23 @@ function playvideo(a = document.querySelector('.videos .playing .listing').getAt
         let b = screen.querySelector('iframe');
         b.parentNode.removeChild(b);
     } else {
-        screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<div id="x"></div>');
-        new YT.Player('x', {
-            videoId: a,
-            playerVars: {
-                autoplay: 1,
-                modestbranding: 1,
-                rel: 0,
-                playsinline: 1,
-                iv_load_policy: 3,
-                origin: 'https://www.youtube.com'
-            },
-            events: {
-                'onStateChange': onPlayerStateChange
-            }
-        });
+        if (YT) {
+            screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<div id="x"></div>');
+            new YT.Player('x', {
+                videoId: a,
+                playerVars: {
+                    autoplay: 1,
+                    modestbranding: 1,
+                    rel: 0,
+                    playsinline: 1,
+                    iv_load_policy: 3,
+                    origin: 'https://www.youtube.com'
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        } else screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<iframe src="https://www.youtube.com/embed/' + a + '?autoplay=1&modestbranding=1&rel=0&playsinline=1"></iframe>');
     }
 }
 
