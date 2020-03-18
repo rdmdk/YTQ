@@ -250,20 +250,18 @@ function enableautoplay() {
 
 document.querySelectorAll('.autoplay').forEach(a => {
     a.addEventListener('click', () => {
-        if (a.classList.contains('off')) {
-            a.classList = 'li autoplay on';
-            localStorage.autoplay = 'on';
-        } else {
-            a.classList = 'li autoplay off';
-            localStorage.autoplay = 'off';
-        }
+        let b = a.classList.contains('off') ? 'on' : 'off';
+        a.classList = 'li autoplay ' + b;
+        localStorage.autoplay = b;
         enableautoplay();
     });
 });
 
 
-if (localStorage.autoplay) latest.querySelector('.autoplay').classList = 'li autoplay ' + localStorage.autoplay;
-if (localStorage.autoplay) saved.querySelector('.autoplay').classList = 'li autoplay ' + localStorage.autoplay;
+if (localStorage.autoplay) {
+    latest.querySelector('.autoplay').classList = 'li autoplay ' + localStorage.autoplay;
+    saved.querySelector('.autoplay').classList = 'li autoplay ' + localStorage.autoplay;
+}
 
 /// Active video
 function setactive() {
@@ -677,29 +675,30 @@ function themez(e) {
     let a, b;
     if (e.shiftKey) setTimeout(() => newsize(), 1e3);
     else {
-        if (document.body.classList.contains('a')) a = 'a', b = 'b';
-        else if (document.body.classList.contains('b')) a = 'b', b = 'c';
-        else if (document.body.classList.contains('c')) a = 'c', b = 'd';
-        else if (document.body.classList.contains('d')) a = 'd', b = 'e';
-        else if (document.body.classList.contains('e')) a = 'e', b = 'f';
-        else if (document.body.classList.contains('f')) a = 'f', b = 'g';
-        else if (document.body.classList.contains('g')) a = 'g', b = 'h';
-        else if (document.body.classList.contains('h')) a = 'h', b = 'i';
-        else if (document.body.classList.contains('i')) a = 'i', b = 'j';
-        else if (document.body.classList.contains('j')) a = 'j', b = 'k';
-        else if (document.body.classList.contains('k')) a = 'k', b = 'l';
-        else if (document.body.classList.contains('l')) a = 'l', b = 'm';
-        else if (document.body.classList.contains('m')) a = 'm', b = 'n';
-        else if (document.body.classList.contains('n')) a = 'n', b = 'o';
-        else if (document.body.classList.contains('o')) a = 'o', b = 'p';
-        else if (document.body.classList.contains('p')) a = 'p', b = 'q';
-        else if (document.body.classList.contains('q')) a = 'q', b = 'r';
-        else if (document.body.classList.contains('r')) a = 'r', b = 's';
-        else if (document.body.classList.contains('s')) a = 's', b = 'aa';
-        else if (document.body.classList.contains('aa')) a = 'aa', b = 'bb';
+        let classes = document.body.classList;
+        if (classes.contains('a')) a = 'a', b = 'b';
+        else if (classes.contains('b')) a = 'b', b = 'c';
+        else if (classes.contains('c')) a = 'c', b = 'd';
+        else if (classes.contains('d')) a = 'd', b = 'e';
+        else if (classes.contains('e')) a = 'e', b = 'f';
+        else if (classes.contains('f')) a = 'f', b = 'g';
+        else if (classes.contains('g')) a = 'g', b = 'h';
+        else if (classes.contains('h')) a = 'h', b = 'i';
+        else if (classes.contains('i')) a = 'i', b = 'j';
+        else if (classes.contains('j')) a = 'j', b = 'k';
+        else if (classes.contains('k')) a = 'k', b = 'l';
+        else if (classes.contains('l')) a = 'l', b = 'm';
+        else if (classes.contains('m')) a = 'm', b = 'n';
+        else if (classes.contains('n')) a = 'n', b = 'o';
+        else if (classes.contains('o')) a = 'o', b = 'p';
+        else if (classes.contains('p')) a = 'p', b = 'q';
+        else if (classes.contains('q')) a = 'q', b = 'r';
+        else if (classes.contains('r')) a = 'r', b = 's';
+        else if (classes.contains('s')) a = 's', b = 'aa';
+        else if (classes.contains('aa')) a = 'aa', b = 'bb';
         else a = 'bb', b = 'a';
-        document.body.classList.remove(a);
-        document.body.classList.add(b);
+        classes.remove(a);
+        classes.add(b);
         localStorage.theme = b;
     }
 }
