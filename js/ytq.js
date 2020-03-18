@@ -621,13 +621,13 @@ document.body.addEventListener('click', (e) => {
                         let b = screen.querySelector('iframe');
                         b.parentNode.removeChild(b);
                         if (document.querySelector('.videos .active')) document.querySelectorAll('.videos .active').forEach(a => classes = 'li');
-                        classes = 'li active playing';
+                        a.classList = 'li active playing';
                         loadvideo();
                         setTimeout(() => setactive(), 10);
                     } else return false;
                 } else {
                     if (document.querySelector('.videos .active')) document.querySelectorAll('.videos .active').forEach(a => classes = 'li');
-                    classes = 'li active playing';
+                    a.classList = 'li active playing';
                     loadvideo();
                     setTimeout(() => setactive(), 10);
                     if (video.scrollHeight === 0) {
