@@ -699,8 +699,8 @@ function themez(e) {
         else if (classes.contains('s')) a = 's', b = 'aa';
         else if (classes.contains('aa')) a = 'aa', b = 'bb';
         else a = 'bb', b = 'a';
-        classes.remove(a);
-        classes.add(b);
+        document.body.classList.remove(a);
+        document.body.classList.add(b);
         localStorage.theme = b;
     }
 }
