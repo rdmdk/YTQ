@@ -513,23 +513,24 @@ document.getElementById('toggle').addEventListener('click', () => {
 });
 const navs = nav.querySelectorAll('.ul .li');
 navs.forEach(a => {
+    let classes = a.classList;
     a.addEventListener('click', (e) => {
-        if (a.classList.contains('import')) importingexporting('import');
-        else if (a.classList.contains('export')) importingexporting('export');
-        else if (a.classList.contains('refresh')) {
+        if (classes.contains('import')) importingexporting('import');
+        else if (classes.contains('export')) importingexporting('export');
+        else if (classes.contains('refresh')) {
             if (e.shiftKey) window.location.reload(true);
             else {
                 if (localStorage.playlists && sync.classList.contains('on')) importurls(localStorage.playlists);
                 getsubscriptions();
             }
-        } else if (a.classList.contains('theme')) themez(e);
-        else if (a.classList.contains('mode')) {
+        } else if (classes.contains('theme')) themez(e);
+        else if (classes.contains('mode')) {
             if (e.shiftKey) {
                 if (window.confirm('Are you sure you want to trigger a supernova? This will reset everything!')) supernova();
                 else return false;
             } else if (e.altKey) window.location = '/ytl';
             else modez();
-        } else if (a.classList.contains('pin')) pinz();
+        } else if (classes.contains('pin')) pinz();
     });
 });
 
@@ -583,16 +584,17 @@ h2s.forEach(a => {
 // Section Menus
 const menus = document.querySelectorAll('.menu .li');
 menus.forEach(a => {
+    let classes = a.classList;
     a.addEventListener('click', () => {
         if (a.closest('.latest')) {
-            if (a.classList.contains('more')) {
+            if (classes.contains('more')) {
                 let n = parseInt(latest.querySelector('.videos').getAttribute('data-page')) + 1;
                 latest.querySelector('.videos').setAttribute('data-page', n);
             }
         } else if (a.closest('.subscriptions')) {
-            if (a.classList.contains('more')) slideDown(all, 500);
-            else if (a.classList.contains('reorder')) reorderz();
-            else if (a.classList.contains('refresh')) getsubscriptions();
+            if (classes.contains('more')) slideDown(all, 500);
+            else if (classes.contains('reorder')) reorderz();
+            else if (classes.contains('refresh')) getsubscriptions();
         }
     });
 });
