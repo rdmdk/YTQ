@@ -249,9 +249,10 @@ function enableautoplay() {
 }
 
 document.querySelectorAll('.autoplay').forEach(a => {
+    let classes = a.classList;
     a.addEventListener('click', () => {
-        let b = a.classList.contains('off') ? 'on' : 'off';
-        a.classList = 'li autoplay ' + b;
+        let b = classes.contains('off') ? 'on' : 'off';
+        classes = 'li autoplay ' + b;
         localStorage.autoplay = b;
         enableautoplay();
     });
@@ -267,12 +268,13 @@ if (localStorage.autoplay) {
 function setactive() {
     setTimeout(() => {
         document.querySelectorAll('.videos .listing').forEach(a => {
+            let classes = a.closest('.li').classList;
             if (a.getAttribute('data-id') === screen.getAttribute('data-id')) {
-                if (!a.closest('.li').classList.contains('active')) {
-                    if (!document.querySelector('.playing')) a.closest('.li').classList = 'li active playing';
-                    else a.closest('.li').classList = 'li active';
+                if (!classes.contains('active')) {
+                    if (!document.querySelector('.playing')) classes = 'li active playing';
+                    else classes = 'li active';
                 }
-            } else a.closest('.li').classList = 'li';
+            } else classes = 'li';
         });
     });
 }
@@ -282,9 +284,9 @@ const options = document.querySelectorAll('#options .li');
 
 function updateoptions() {
     options.forEach(a => {
-        let b = a.classList[1];
-        if (!localStorage.getItem(b)) a.classList.add('hide');
-        else a.classList.remove('hide');
+        let classes = a.classList;
+        if (!localStorage.getItem(classes[1])) classes.add('hide');
+        else classes.remove('hide');
     });
 }
 
@@ -397,11 +399,12 @@ function importurls(a) {
 }
 
 sync.addEventListener('click', () => {
-    if (sync.classList.contains('off')) {
-        sync.classList = 'li sync on';
+    let classes = sync.classList;
+    if (classes.contains('off')) {
+        classes = 'li sync on';
         localStorage.synced = 'on';
     } else {
-        sync.classList = 'li sync off';
+        classes = 'li sync off';
         localStorage.synced = 'off';
         localStorage.playlists = '';
     }
@@ -493,12 +496,13 @@ function pinz() {
 }
 
 function pinned() {
+    let classes = video.classList;
     if (localStorage.pin === 'pin') {
         nav.querySelector('.pin .span').classList.add('p');
-        if ((window.innerWidth > window.innerHeight) && (window.scrollY > (screen.offsetTop + screen.scrollHeight))) video.classList.add('pin');
-        else if (window.innerWidth <= window.innerHeight) video.classList.add('pin');
-        else video.classList.remove('pin');
-    } else video.classList.remove('pin');
+        if ((window.innerWidth > window.innerHeight) && (window.scrollY > (screen.offsetTop + screen.scrollHeight))) classes.add('pin');
+        else if (window.innerWidth <= window.innerHeight) classes.add('pin');
+        else classes.remove('pin');
+    } else classes.remove('pin');
 }
 
 pinned();
@@ -602,27 +606,28 @@ menus.forEach(a => {
 // Dynamic Content Interaction
 document.body.addEventListener('click', (e) => {
     let a = e.target;
+    let classes = a.classList;
     if (a.localName === 'li') {
         if (a.closest('.videos')) {
-            if (a.classList.contains('active')) {
-                if (a.classList.contains('playing')) return false;
+            if (classes.contains('active')) {
+                if (classes.contains('playing')) return false;
                 else if (document.querySelector('.playing')) {
                     document.querySelector('.playing').classList.remove('playing');
-                    a.classList.add('playing');
+                    classes.add('playing');
                 }
             } else {
                 if (screen.querySelector('iframe')) {
                     if (window.confirm('Stop current video?')) {
                         let b = screen.querySelector('iframe');
                         b.parentNode.removeChild(b);
-                        if (document.querySelector('.videos .active')) document.querySelectorAll('.videos .active').forEach(a => a.classList = 'li');
-                        a.classList = 'li active playing';
+                        if (document.querySelector('.videos .active')) document.querySelectorAll('.videos .active').forEach(a => classes = 'li');
+                        classes = 'li active playing';
                         loadvideo();
                         setTimeout(() => setactive(), 10);
                     } else return false;
                 } else {
-                    if (document.querySelector('.videos .active')) document.querySelectorAll('.videos .active').forEach(a => a.classList = 'li');
-                    a.classList = 'li active playing';
+                    if (document.querySelector('.videos .active')) document.querySelectorAll('.videos .active').forEach(a => classes = 'li');
+                    classes = 'li active playing';
                     loadvideo();
                     setTimeout(() => setactive(), 10);
                     if (video.scrollHeight === 0) {
@@ -635,9 +640,9 @@ document.body.addEventListener('click', (e) => {
                 if (!video.classList.contains('pin')) zenscroll.toY(0, 500);
             }
         } else if (a.closest('.channels') && !subscriptions.classList.contains('edit')) {
-            if (a.classList.contains('active')) return false;
+            if (classes.contains('active')) return false;
             if (document.querySelector('.channels .active')) document.querySelector('.channels .active').classList = 'li';
-            a.classList.add('active');
+            classes.add('active');
             getlatest('upload');
             setTimeout(() => {
                 if (latest.querySelector('.videos').scrollHeight === 0) latest.querySelector('.h2 .title').click();
@@ -649,7 +654,7 @@ document.body.addEventListener('click', (e) => {
             setTimeout(() => enableautoplay(), 750);
         }
     } else if (a.localName === 'span') {
-        if (a.classList.contains('save')) {
+        if (classes.contains('save')) {
             if (a.closest('.latest')) {
                 if (saved.querySelector('.videos').innerHTML.includes(a.previousElementSibling.getAttribute('data-id'))) return false;
                 a.title = 'Remove';
@@ -662,7 +667,7 @@ document.body.addEventListener('click', (e) => {
             enableautoplay();
             setTimeout(() => localStorage.saved = saved.querySelector('.videos').innerHTML, 500);
 
-        } else if (a.classList.contains('star')) {
+        } else if (classes.contains('star')) {
             let b = a.closest('.li');
             let c = a.closest('.favorites') ? all : favorites;
             c.insertAdjacentHTML('beforeend', b.outerHTML);
@@ -699,8 +704,8 @@ function themez(e) {
         else if (classes.contains('s')) a = 's', b = 'aa';
         else if (classes.contains('aa')) a = 'aa', b = 'bb';
         else a = 'bb', b = 'a';
-        document.body.classList.remove(a);
-        document.body.classList.add(b);
+        classes.remove(a);
+        classes.add(b);
         localStorage.theme = b;
     }
 }
@@ -721,11 +726,11 @@ recalltheme();
 
 // Night Mode
 function modez() {
-    let a, b;
-    if (document.body.classList.contains('day')) a = 'day', b = 'night';
+    let a, b, classes = document.body.classList;
+    if (classes.contains('day')) a = 'day', b = 'night';
     else a = 'night', b = 'day';
-    document.body.classList.remove(a);
-    document.body.classList.add(b);
+    classes.remove(a);
+    classes.add(b);
     localStorage.mode = b;
 }
 
