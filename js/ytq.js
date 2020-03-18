@@ -209,7 +209,7 @@ function playvideo(a = document.querySelector('.videos .playing .listing').getAt
                     'onStateChange': onPlayerStateChange
                 }
             });
-        });
+        }
     }
 }
 
