@@ -194,19 +194,21 @@ function playvideo(a = document.querySelector('.videos .playing .listing').getAt
         b.parentNode.removeChild(b);
     } else {
         screen.querySelector('.inner').insertAdjacentHTML('afterbegin', '<div id="x"></div>');
-        new YT.Player('x', {
-            videoId: a,
-            playerVars: {
-                autoplay: 1,
-                modestbranding: 1,
-                rel: 0,
-                playsinline: 1,
-                iv_load_policy: 3,
-                origin: 'https://www.youtube.com'
-            },
-            events: {
-                'onStateChange': onPlayerStateChange
-            }
+        window.onYouTubeIframeAPIReady = function() {
+            new YT.Player('x', {
+                videoId: a,
+                playerVars: {
+                    autoplay: 1,
+                    modestbranding: 1,
+                    rel: 0,
+                    playsinline: 1,
+                    iv_load_policy: 3,
+                    origin: 'https://www.youtube.com'
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         });
     }
 }
