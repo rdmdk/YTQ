@@ -140,7 +140,7 @@ function getlatest(a = 'search') {
     let url = '';
     let n = 1;
     if (a === 'search') url = 'https://www.googleapis.com/youtube/v3/search?&channelId=' + subscriptionid + '&part=snippet,id&order=date&maxResults=16&type=video&key=' + youtubekey;
-    else if (a === 'upload') url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2C+id&playlistId=' + subscriptionid.replace(/UC/gm, "UU') + '&order=date&maxResults=16&key=' + youtubekey;
+    else if (a === 'upload') url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2C+id&playlistId=' + subscriptionid.replace(/UC/gm, 'UU') + '&order=date&maxResults=16&key=' + youtubekey;
     fetch(url)
         .then(a => { return a.json() })
         .then(b => {
