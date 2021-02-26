@@ -809,16 +809,6 @@ window.addEventListener('resize', () => {
 });
 window.addEventListener('scroll', () => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize() });
 
-// PWA Service Worker
-/*
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('./sw.js', { scope: './ytq' })
-    .then(a => a)
-    .catch(e => console.error(e));
-}
-*/
-
 // Update localStorage
 
 function update_storage() {
