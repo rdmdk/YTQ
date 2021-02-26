@@ -497,9 +497,7 @@
 }
 .window .options .ul .hide {display: none}
 .window .options .ul .li:not(.active) {background:none}
-.window .options .ul .active {
-	color: #fff;
-}
+.window .options .ul .active {color: #fff}
 .window .textarea {
 	font-family: inherit;
 	font-size: 1.25rem;
@@ -584,7 +582,7 @@
 .aside.active {transform: translate(0,0)}
 .night.s .aside {color: #000}
 .aside .inner {
-	height:100%;
+	height: 100%;
 	padding: 3rem;
 	display: grid;
 	grid-template-rows: min-content auto min-content;
