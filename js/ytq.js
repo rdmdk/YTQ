@@ -9,7 +9,6 @@ var all = document.getElementById('all');
 var saved = document.getElementById('saved');
 var saved_videos = saved.querySelector('.videos');
 var nav = document.getElementById('nav');
-var prefs = document.getElementById('preferences');
 var options = document.getElementById('options');
 var autoplays = document.querySelectorAll('.autoplay');
 var input = document.getElementById('input');
@@ -548,6 +547,8 @@ document.getElementById('button').addEventListener('click', () => {
             else {
                 if (opt_n >= 1) {
                     if (a === 'redmond') localStorage.ytq_id = 'UCqMnpO2ok_usDfeoTm36EGA';
+                    else if (a === 'victoria') localStorage.ytq_id = 'UCHPVh0gqxn5IO3geNxI6uxQ';
+                    else if (a === 'charlie') localStorage.ytq_id = 'UCb2CJSF7SNz55COAHQ3-dBQ';
                     else localStorage.ytq_id = a;
                 }
             }
@@ -803,7 +804,18 @@ window.addEventListener('resize', () => {
 });
 window.addEventListener('scroll', () => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize() });
 
+// PWA Service Worker
+/*
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('./sw.js', { scope: './ytq' })
+    .then(a => a)
+    .catch(e => console.error(e));
+}
+*/
+
 // Update localStorage
+
 function update_storage() {
 	document.body.style.display = 'none';
 	console.log('Updating...');
