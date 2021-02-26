@@ -34,11 +34,7 @@
 	-webkit-touch-callout: none;
 	user-select: none;
 	scroll-behavior: smooth;
-	-webkit-overflow-scrolling: touch;
-    	-ms-overflow-style: none;
 }
-.body::-webkit-scrollbar {display: none}
-
 .body.day,
 .body.night {opacity: 1}
 .h1,
@@ -53,10 +49,9 @@
 .a {color: inherit}
 .img {
 	font-size: 0;
-	background: center center no-repeat #8080800d;
+	background: center center no-repeat;
 	background-size: cover;
 }
-.pin .img {background-color: none}
 .sup {
 	font-size: 0.5em;
 	letter-spacing: 0.15em;
@@ -83,14 +78,15 @@
 .list .li {
 	font-size: 1.25rem;
 	cursor: pointer;
-	position: relative;
+	display: grid;
+	grid-template-columns: auto 3.25rem;
+	align-items: center;
 }
 .section:not(.edit) .list .active {color: #fff}
 
 .list .li .listing {
 	display: grid;
-	grid-template-columns: 25% 75%;
-	grid-template-rows: 1fr;
+	grid-template-columns: 25% auto;
 	align-items: center;
 	pointer-events: none;
 }
@@ -100,22 +96,11 @@
 	line-height: 1.6em;
 	text-overflow: ellipsis;
 	max-height: 2.9em;
-	padding: 0 3.25rem 0 2rem;
+	padding: 0 2rem;
 	overflow: hidden;
 }
 .channels .li .listing .title {padding-left: 0}
 .list .li .image .img {width: 100%}
-.videos .li .save {
-	line-height: 3rem;
-	text-align: center;
-	width: 3rem;
-	height: 3rem;
-	display: block;
-	transform: translate(0,-50%);
-	position: absolute;
-	top: 50%;
-	right: 0;
-}
 .videos .active .save {color: #fff}
 .saved .videos .li .save i {transform: rotate(45deg)}
 .menu {
@@ -134,7 +119,9 @@
 	cursor: pointer;
 }
 .subscriptions:not(.edit) .menu .reorder .d,
-.subscriptions.edit .menu .reorder .r {display: none}
+.saved:not(.edit) .menu .reorder .d,
+.subscriptions.edit .menu .reorder .r,
+.saved.edit .menu .reorder .r {display: none}
 
 *[data-color] {color: #808080}
 .a *[data-color] {color: var(--a, #f44336)}
@@ -277,7 +264,7 @@
 /* Main */
 
 .main {
-    width: 100%;
+	width: 100%;
 	position: relative;
 	z-index: 5;
 } 
@@ -327,7 +314,6 @@
 .video .screen .inner iframe {
 	width: 100%;
 	height: 100%;
-	border: none;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -339,6 +325,7 @@
 }
 .video .placeholder {width: 100%}
 .video .info {
+	min-height: 1rem;
 	display: grid;
 	grid-template-columns: auto min-content; 
 	grid-template-rows: auto min-content; 
@@ -351,8 +338,7 @@
 }
 .video .info .channel,
 .video .info .date {font-size: 1.25rem}
-.video .info .channel {
-	grid-area: 2 / 1 / 3 / 2; }
+.video .info .channel {grid-area: 2 / 1 / 3 / 2}
 .video .info .date {
 	text-align: right;
 	grid-area: 2 / 2 / 3 / 3;
@@ -369,6 +355,7 @@
 .latest .videos[data-page='2'] li:nth-child(n+9),
 .latest .videos[data-page='3'] li:nth-child(n+13) {display:none}
 
+.latest .handles .drag,
 .latest .menu .youtube,
 .latest .menu .fix,
 .latest .videos:empty ~ .menu,
@@ -388,32 +375,19 @@
 }
 .edit .favorites:before {content:"Favorites"}
 .edit .all:before {content:"All"}
-.subscriptions .list .li .listing {grid-column-gap: 0}
 .subscriptions .list .li .listing .image .img {
 	border-radius: 100%;
 	transform: scale(0.5);
 }
 .subscriptions .list .li .handles {
-	text-align: center;
-	width: 3rem;
-	height: 100%;
+	padding: 0.75rem 0;
 	display: none;
 	grid-template-rows: 1fr 1fr;
-	position: absolute;
-	top: 0;
-	right: 0;
 }
 .edit .list .li .handles {display: grid}
-.subscriptions .list .li .handles .span {
-	line-height: 3.5rem;
-	height: 3.5rem;
-	display: block;
-}
-.subscriptions .list .li .handles .star {line-height: 4rem}
-.subscriptions .list .li .handles .drag {
-	line-height: 3rem;
-	cursor: move;
-}
+.subscriptions .list .li .handles .span {display: block}
+.subscriptions .favorites .li .handles .star .fa-star-o,
+.subscriptions .all .li .handles .star .fa-star {display: none}
 .subscriptions:not(.edit) .favorites:empty {display:none}
 
 .subscriptions .menu .more {display: inline-block}
@@ -451,6 +425,10 @@
 .saved .videos:empty ~ .menu {display: none} 
 .saved .undefined {display: none}
 .saved .menu .li {cursor: pointer}
+
+.saved.edit .handles .save,
+.saved:not(.edit) .handles .drag {display: none}
+
 .menu .switch {
 	font-size: 1.25rem;
 	margin-left: 1rem;
@@ -464,13 +442,28 @@
 .menu .on .fa-toggle-on,
 .menu .off .fa-toggle-off {display: block}
 
+.handles {
+	height: 100%;
+	padding-right: 2rem;
+	display: grid;
+	align-items: center;
+}
+
+.handles span {
+	font-size: 1.25rem;
+	width: 1em;
+	cursor: pointer;
+}
+
+.handles .drag {cursor: move}
+
 /* Window */
 
 .window {
 	width: 100%;
 	height: calc(100% - 5rem);
 	grid-template-rows: auto min-content min-content min-content min-content;
-	overflow-y: auto;
+	overflow-y:auto;
 	display: none;
 	position: fixed;
 	bottom: 5rem;
@@ -594,6 +587,7 @@
 	display: grid;
 	grid-template-rows: min-content auto min-content;
 	grid-gap: 3rem;
+
 }
 .aside .h2 .span {
 	float: right;
@@ -619,7 +613,7 @@
 }
 .aside .button {
 	background: #fff;
-	margin:0;
+	margin: 0;
 }
 
 /* Day / Night */
@@ -628,11 +622,11 @@
 	background: #fff;
 	color: #222;
 }
+.day .bg {background-color: #fff}
 .day .video,
 .day .list .li:not(.active),
 .day .edit .list .li.active,
 .day .subscriptions .list .li .handles {background: #fbfbfb}
-.day.helv .video {border-bottom: 1px solid #eee}
 .day .window .section {background: #fff}
 .day .window .fade {background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,1))}
 .day .window .textarea {background: #fbfbfb}
@@ -643,11 +637,11 @@
 	background: #000;
 	color: #fff;
 }
+.night .bg {background-color: #0d0d0d}
 .night .video,
 .night .list .li:not(.active),
 .night .edit .list .li.active,
 .night .subscriptions .list .li .handles {background: #0d0d0d}
-.night.helv .video {border-bottom: 1px solid #222}
 .night .window .section {background: #000}
 .night .window .fade {background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,1))}
 .night .window .textarea {background: #0d0d0d}
@@ -723,10 +717,6 @@
 	.window .options {padding: 0}
 	.window .h2 {padding: 2.2rem 0}
 	.window .options .ul {margin: 0 0 1rem 0}
-	.aside {width: calc(60rem/2 - 1.5rem)}
-	.helv .video .info .title {padding: 2.9rem 0 2.2rem}
-	.helv .video .info .channel {padding: 0 0 2.6rem}
-	.helv .video .info .date {padding: 0 0 2.6rem 3rem}
 }
 
 @media (orientation: portrait) {
@@ -750,8 +740,4 @@
 	.window .exit {padding: 2.6rem 3rem}
 	.window .h2 {padding: 2.6rem 0 2.6rem 3rem}
 	.window .options .ul {margin: 0 2rem}
-	.aside {width: 75%}
-	.helv .video .info .title {padding: 2.9rem 3rem 2rem}
-	.helv .video .info .channel,
-	.helv .video .info .date {padding-bottom: 2.6rem}
 }
