@@ -790,10 +790,6 @@ function modez() {
     if (opt_n >= 1) localStorage.ytq_mode = b;
 }
 
-// Preferences
-if (window.location.hash === '#prefs') prefs.classList.add('active');
-prefs.querySelector('.exit').addEventListener('click', () => prefs.classList.remove('active'));
-
 // Resizing
 function newsize() {
     var a = document.querySelector('#info .h1').scrollHeight;
