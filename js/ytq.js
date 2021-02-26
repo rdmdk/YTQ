@@ -548,8 +548,6 @@ document.getElementById('button').addEventListener('click', () => {
             else {
                 if (opt_n >= 1) {
                     if (a === 'redmond') localStorage.ytq_id = 'UCqMnpO2ok_usDfeoTm36EGA';
-                    else if (a === 'victoria') localStorage.ytq_id = 'UCHPVh0gqxn5IO3geNxI6uxQ';
-                    else if (a === 'charlie') localStorage.ytq_id = 'UCb2CJSF7SNz55COAHQ3-dBQ';
                     else localStorage.ytq_id = a;
                 }
             }
