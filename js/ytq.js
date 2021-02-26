@@ -16,7 +16,7 @@ var input = document.getElementById('input');
 var win = document.getElementById('window');
 var youtubekey = 'AIzaSyAfrBvS4cGHrdMcLQYCKqcfKELVCx3qadY';
 var channelid = '';
-var opt_n = localStorage.opt ? parseInt(localStorage.opt) : 0;
+var opt_n = 1;
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) document.querySelector('html').classList.add('mobile');
 else document.querySelector('html').classList.add('desktop');
