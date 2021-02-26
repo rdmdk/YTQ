@@ -810,7 +810,6 @@ window.addEventListener('resize', () => {
 window.addEventListener('scroll', () => { if ((window.scrollY + screen.scrollHeight) <= (latest.offsetTop - 5)) newsize() });
 
 // Update localStorage
-
 function update_storage() {
 	document.body.style.display = 'none';
 	console.log('Updating...');
